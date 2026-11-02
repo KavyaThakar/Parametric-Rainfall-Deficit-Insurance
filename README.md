@@ -54,27 +54,27 @@ This repository implements a production-grade actuarial framework that:
 
 ```mermaid
 flowchart TD
-    A[NASA POWER API / Local Cache] -->|Daily Precipitation 1991-2024| B[Data Cleaning & Ingestion]
-    B --> C[Seasonal Index Construction<br/>Kharif: Jun-Sep]
+    A["NASA POWER API / Local Cache"] -->|Daily Precipitation 1991-2024| B["Data Cleaning & Ingestion"]
+    B --> C["Seasonal Index Construction<br/>(Kharif: Jun-Sep)"]
     
-    subgraph Actuarial Underwriting Pipeline
-        C --> D[Distribution Fitting<br/>Gamma | Lognormal | Weibull]
-        D --> E[Goodness of Fit<br/>AIC Ranking & KS-Test]
-        E --> F[200k Monte Carlo Simulation]
-        F --> G[Actuarial Pricing Engine<br/>Burn Cost + Risk Load + Expense Load]
-        G --> H[Solvency & Tail Risk<br/>VaR 99% & TVaR 99%]
+    subgraph Pipeline["Actuarial Underwriting Pipeline"]
+        C --> D["Distribution Fitting<br/>(Gamma, Lognormal, Weibull)"]
+        D --> E["Goodness of Fit<br/>(AIC Ranking & KS-Test)"]
+        E --> F["200k Monte Carlo Simulation"]
+        F --> G["Actuarial Pricing Engine<br/>(Burn Cost + Risk Load + Expense Load)"]
+        G --> H["Solvency & Tail Risk<br/>(VaR 99% & TVaR 99%)"]
     end
     
-    subgraph Advanced Multi-Peril Engine
-        C --> I[Multi-Index Feature Extraction<br/>Deficit | Dry Spells | 3-Day Excess]
-        I --> J[Joint Dependence Modeling<br/>Gaussian Copula Simulation]
-        J --> K[FAO-33 Soil Moisture Yield Proxy]
-        K --> L[Basis Risk Evaluation & Grid Search Optimization]
-        I --> M[Mann-Kendall Trend & Sen's Slope Test]
-        I --> N[Walk-Forward Out-of-Sample Backtest]
+    subgraph MultiPeril["Advanced Multi-Peril Engine"]
+        C --> I["Multi-Index Feature Extraction<br/>(Deficit, Dry Spells, 3-Day Excess)"]
+        I --> J["Joint Dependence Modeling<br/>(Gaussian Copula Simulation)"]
+        J --> K["FAO-33 Soil Moisture Yield Proxy"]
+        K --> L["Basis Risk Evaluation & Grid Search Optimization"]
+        I --> M["Mann-Kendall Trend & Sen's Slope Test"]
+        I --> N["Walk-Forward Out-of-Sample Backtest"]
     end
     
-    G --> O[Interactive Streamlit Dashboard]
+    G --> O["Interactive Streamlit Dashboard"]
     H --> O
     L --> O
     N --> O
